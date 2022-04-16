@@ -1,0 +1,40 @@
+.gameList {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    justify-content: space-evenly;
+}
+
+.game {
+    margin: 10px 0;
+    background-color: rgb(38, 38, 38);
+    color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+
+.game>img {
+    height: 150px;
+    width: 300px;
+}
+
+.game>p {
+    margin: 5px 10px;
+}
+
+.game__genres {
+    display: flex;
+    margin: 5px 10px;
+}
+
+.game__genre {
+    font-size: 15px;
+    background-color: rgb(122, 122, 122);
+    margin: 0 5px;
+    padding: 2px 5px;
+    border-radius: 2px;
+}

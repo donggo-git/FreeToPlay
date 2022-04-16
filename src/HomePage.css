@@ -1,20 +1,25 @@
 .Homepage {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('https://wallpapercave.com/wp/B1sODrM.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('https://th.bing.com/th/id/R.f3305e0ec42ab27f3bb3b5f325128d91?rik=PwFBdolPpN0rcg&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f05%2fHd-gaming-high-wallpaper.jpg&ehk=guFy6yeuNXSVm90NwvGpfp6Vbnao5x2qVZuT3jo8NOA%3d&risl=&pid=ImgRaw&r=0');
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     position: relative
 }
 
-.logo {
-    color: white;
-    font-size: 40px;
+nav {
     width: calc(100%-40px);
     height: fit-content;
     padding: 10px 20px;
-    font-family: 'Mulish', sans-serif;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+}
+
+.logo {
+    color: white;
+    font-size: 40px;
+    font-family: 'Varela Round', sans-serif;
+
     text-align: left;
 }
