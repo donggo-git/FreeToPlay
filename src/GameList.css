@@ -3,10 +3,12 @@
     display: grid;
     grid-template-columns: 300px 300px 300px;
     justify-content: space-evenly;
+    width: fit-content;
+    margin-left: 300px;
 }
 
 .game {
-    margin: 10px 0;
+    margin: 10px;
     background-color: rgb(38, 38, 38);
     color: white;
     border-radius: 20px;
@@ -19,7 +21,7 @@
 
 .game>img {
     height: 150px;
-    width: 300px;
+    width: 100%;
 }
 
 .game>p {
