@@ -1,46 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import './GameList.css'
+import React from 'react'
 
-function GameList({ searchInput, filter }) {
-    let api_key = '4d9f3393dbcd43549ea70dc0f6cff3b9'
-    const [gameList, setGameList] = useState([])
-    //use to return the end of fetching base on user filter
-    const returnFilterPath = () => {
-        let returnPath = ''
-        for (let section in filter) {
-            if (filter[section].length != 0) {
-                returnPath += `&${section}=${filter[section]}`
-            }
-        }
-        return returnPath;
-    }
-    const fetchData = () => {
-        if (searchInput.length != 0) {
-            fetch(`
-            https://api.rawg.io/api/games?key=${api_key}&search=${searchInput}
-            ${returnFilterPath()}
-            `)
-                .then(response => response.json())
-                .then(data => setGameList(data.results))
-        }
-        else {
-            fetch(`
-            https://api.rawg.io/api/games?key=${api_key}&page=1
-            ${returnFilterPath()}
-            `)
-                .then(response => response.json())
-                .then(data => setGameList(data.results))
-        };
-    }
-    useEffect(() => {
-        fetchData()
-        let filterPath = returnFilterPath()
-    }, [searchInput, filter])
-
+function GameList({ gameList }) {
     return (
-        <div className='gameList'>
-            {
-                gameList.length > 0 ?
+        <div>
+            <div className='gameList'>
+                {
                     gameList.map(game => (
                         <div key={game.name} className="game">
                             <img src={game.background_image} />
@@ -57,9 +21,9 @@ function GameList({ searchInput, filter }) {
                                 }
                             </div>
                         </div>
-                    )) :
-                    <div></div>
-            }
+                    ))
+                }
+            </div>
         </div>
     )
 }

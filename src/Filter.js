@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import './Filter.css'
+import LoadingPage from './LoadingPage'
 
-function Filter({ handleSearch, handleFilter }) {
+function Filter({ handleFilter }) {
     const [genres, setGenres] = useState([])
     const [platforms, setPlatforms] = useState([])
     const [tags, setTags] = useState([])
     const [scrollPosition, setScrollPosition] = useState(0);
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleScroll = () => {
         const position = window.pageYOffset;
-        //console.log(position)
         setScrollPosition(position);
     };
 
-    const fetchGenres = () => {
+    const fetchGenres = async () => {
         fetch('https://api.rawg.io/api/genres?key=4d9f3393dbcd43549ea70dc0f6cff3b9')
             .then(res => res.json())
-            .then(data => setGenres(data.results))
+            .then(data => {
+                setGenres(data.results)
+            })
+
     }
-    const fetchPlatforms = () => {
+    const fetchPlatforms = async () => {
         fetch('https://api.rawg.io/api/platforms?key=4d9f3393dbcd43549ea70dc0f6cff3b9')
             .then(res => res.json())
             .then(data => setPlatforms(data.results.slice(0, 15)))
     }
-    const fetchTags = () => {
+    const fetchTags = async () => {
         fetch('https://api.rawg.io/api/tags?key=4d9f3393dbcd43549ea70dc0f6cff3b9')
             .then(response => response.json())
-            .then(data => setTags(data.results))
+            .then(data => {
+                setTags(data.results)
+                setTimeout(setIsLoading(false), 1000)
+            })
     }
     //fetching genres, platforms and tags
+    const fetchFilter = () => {
+        try {
+            setIsLoading(true)
+            fetchGenres()
+            fetchPlatforms()
+            fetchTags()
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
     useEffect(() => {
-        fetchGenres();
-        fetchPlatforms();
-        fetchTags()
+
+        fetchFilter()
+
         window.addEventListener("scroll", handleScroll);
 
         return () => {
@@ -75,7 +93,7 @@ function Filter({ handleSearch, handleFilter }) {
                         <div className='Filter__checkbox' key={platform.name}>
                             <input
                                 type='checkbox'
-                                value={platform.slug}
+                                value={platform.id}
                                 onChange={(e) => handleFilter('platforms', e.target.value)}
                                 id={platform.slug}
                             />
@@ -111,6 +129,9 @@ function Filter({ handleSearch, handleFilter }) {
                     }
                 </div>
             </div>
+            {
+                isLoading && <LoadingPage top='180px' height='100%' width='240px' />
+            }
         </div>
     )
 }

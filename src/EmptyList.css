@@ -1,0 +1,21 @@
+.EmptyList {
+    color: white;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.EmptyList>h1 {
+    font-size: 40px;
+}
+
+.EmptyList>h1>span {
+    color: red;
+}
+
+.EmptyList>p {
+    margin: 10px 0;
+    font-size: 20px;
+}

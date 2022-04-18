@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import './HomePage.css'
 import SearchAndFilter from './SearchAndFilter'
-import GameList from './GameList'
+import LoadingPage from './LoadingPage'
+import BottomComponent from './BottomComponent'
 
 function HomePage() {
-    const [searchInput, setSearchInput] = useState('')
+    const [searchSubmit, setSearchSubmit] = useState('')
     const [filter, setFilter] = useState({
         genres: [],
         platforms: [],
         tags: []
     })
-    const handleSearch = (input) => {
-        console.log(input)
-        setSearchInput(input)
+    const handleSearch = (input, e) => {
+        e.preventDefault()
+        setSearchSubmit(input)
     }
     const handleFilter = (section, input) => {
         let updatedFilter = { ...filter }
@@ -32,11 +33,13 @@ function HomePage() {
 
             </nav>
             <SearchAndFilter
-                searchInput={searchInput}
                 handleSearch={handleSearch}
                 handleFilter={handleFilter}
             />
-            <GameList searchInput={searchInput} filter={filter} />
+            <BottomComponent
+                searchSubmit={searchSubmit}
+                filter={filter}
+            />
         </div>
     )
 }

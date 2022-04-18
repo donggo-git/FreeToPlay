@@ -1,0 +1,50 @@
+.LoadingPage__container {
+    position: relative;
+}
+
+.LoadingPage {
+    color: white;
+    position: fixed;
+    background-color: rgb(34, 34, 34);
+    z-index: 3;
+    top: 0%;
+}
+
+.LoadingPage__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.LoadingPage__cols {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.LoadingPage__cols>div {
+    height: 30px;
+    width: 5px;
+    background-color: red;
+    margin: 0 5px;
+    animation: loading 1s linear infinite;
+}
+
+.LoadingPage__col--2 {
+    animation-delay: 0.1s !important;
+}
+
+.LoadingPage__col--3 {
+    animation-delay: 0.2s !important;
+}
+
+@keyframes loading {
+    from {
+        transform: scaleY(0.2);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}

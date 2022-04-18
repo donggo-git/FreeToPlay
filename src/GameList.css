@@ -1,16 +1,29 @@
-.gameList {
+.gameList__container {
+    position: relative;
     margin-top: 50px;
+    width: calc(100% - 300px);
+    margin-left: 300px;
+    min-height: calc(100vh - 170px);
+    color: white;
+}
+
+.gameList__amount {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.gameList {
     display: grid;
     grid-template-columns: 300px 300px 300px;
     justify-content: space-evenly;
     width: fit-content;
-    margin-left: 300px;
+
 }
 
 .game {
     margin: 10px;
     background-color: rgb(38, 38, 38);
-    color: white;
+
     border-radius: 20px;
     overflow: hidden;
     font-size: 25px;
