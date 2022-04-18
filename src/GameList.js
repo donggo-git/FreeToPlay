@@ -11,7 +11,7 @@ function GameList({ gameList }) {
                             <p>{game.name}</p>
                             <div className='game__genres'>
                                 {
-                                    game.genres.map((genre) => (
+                                    game.genres.slice(0, 3).map((genre) => (
                                         <div
                                             key={genre.name}
                                             className="game__genre">

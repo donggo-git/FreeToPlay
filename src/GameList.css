@@ -22,19 +22,27 @@
 
 .game {
     margin: 10px;
-    background-color: rgb(38, 38, 38);
-
+    background-color: rgb(45, 45, 45);
+    box-shadow: 0 0 16px rgb(21, 21, 21);
+    cursor: pointer;
     border-radius: 20px;
     overflow: hidden;
     font-size: 25px;
     font-weight: bold;
     padding-bottom: 20px;
+    transition: transform 0.4s;
+    position: relative;
+    width: 90%;
 }
 
+.game:hover {
+    transform: scale(1.05);
+}
 
 .game>img {
     height: 150px;
     width: 100%;
+    z-index: 2;
 }
 
 .game>p {
@@ -44,6 +52,7 @@
 .game__genres {
     display: flex;
     margin: 5px 10px;
+    width: calc(100% - 5px);
 }
 
 .game__genre {
@@ -52,4 +61,5 @@
     margin: 0 5px;
     padding: 2px 5px;
     border-radius: 2px;
+    height: fit-content;
 }

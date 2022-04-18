@@ -6,7 +6,8 @@
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    position: relative
+    position: relative;
+    overflow-x: hidden;
 }
 
 nav {

@@ -1,6 +1,5 @@
 
     
-    While the API is loading, replace the content of the search results with a “Loading…” message.
     An error message should show up if the query failed to send (such as if you do not have an internet connection or the query is incorrect)
 
  
