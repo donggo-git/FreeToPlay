@@ -9,7 +9,7 @@
 
 .gameList__amount {
     font-size: 18px;
-    margin-bottom: 10px;
+    transform: translateY(10px);
 }
 
 .gameList {
@@ -17,7 +17,7 @@
     grid-template-columns: 300px 300px 300px;
     justify-content: space-evenly;
     width: fit-content;
-
+    margin-top: 20px;
 }
 
 .game {
@@ -62,4 +62,28 @@
     padding: 2px 5px;
     border-radius: 2px;
     height: fit-content;
+}
+
+/*tablet*/
+@media screen and (max-width:1000px) and (min-width: 800px) {
+    .gameList__container {
+        margin-left: 100px;
+    }
+
+    .gameList {
+        grid-template-columns: 300px 300px
+    }
+}
+
+/*phone*/
+@media screen and (max-width:800px) {
+    .gameList__container {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+
+    .gameList {
+        grid-template-columns: 300px
+    }
 }

@@ -62,6 +62,8 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
             >
                 <span><FontAwesomeIcon icon={faFilter} /></span> Filter
             </div>
+            {/*modal */}
+            <div className='modal'></div>
             {/*filter */}
             <div
                 className='Filter'

@@ -2,19 +2,16 @@ import React, { useEffect, useState } from 'react'
 import './LoadingPage.css'
 
 function LoadingPage({ height, width }) {
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const handleScroll = () => {
-        const position = window.pageYOffset;
-        setScrollPosition(position);
-    };
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-    }, [])
+    const handleLoadingScroll = () => {
+        let newScrollPosition = window.scrollY
+        if (newScrollPosition < 180) return 180 - newScrollPosition;
+        else return 0
+    }
     return (
         <div
             className='LoadingPage'
             style={{
-                top: scrollPosition < 150 ? (150 - scrollPosition) + 'px' : '0px',
+                top: handleLoadingScroll(),
                 width: width,
                 height: height
             }}
