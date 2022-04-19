@@ -1,6 +1,4 @@
 
-    
-    An error message should show up if the query failed to send (such as if you do not have an internet connection or the query is incorrect)
 
  
 

@@ -1,0 +1,78 @@
+.ErrorMessage__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 11;
+    animation: errorAppear 0.2s linear forwards
+}
+
+.ErrorMessage {
+    position: relative;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    width: 50%;
+    z-index: 2;
+    padding: 20px;
+    margin: 0;
+}
+
+.ErrorMessage__closeBtn {
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.ErrorMessage>h3 {
+    font-size: 40px;
+    margin: 30px;
+}
+
+.ErrorMessage>h3>span {
+    color: rgb(218, 218, 0);
+}
+
+.ErrorMessage>p {
+    font-size: 18px;
+    margin: 20px auto;
+    width: fit-content;
+    width: 80%;
+}
+
+.ErrorMessage__modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+@keyframes errorAppear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .ErrorMessage {
+        width: 80%;
+    }
+
+    .ErrorMessage>h3 {
+        font-size: 30px;
+    }
+}
