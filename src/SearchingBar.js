@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import './FindingBar.css'
+import './SearchingBar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-function FindingBar({ handleSearch }) {
+function SearchingBar({ handleSearch }) {
     const [searchInput, setSearchInput] = useState('')
     const handleSearchInput = (input) => {
         setSearchInput(input)
@@ -28,4 +28,4 @@ function FindingBar({ handleSearch }) {
     )
 }
 
-export default FindingBar
+export default SearchingBar

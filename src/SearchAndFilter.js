@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import FindingBar from './FindingBar'
+import SearchingBar from './SearchingBar'
 import Filter from './Filter'
 
 function SearchAndFilter({ searchInput, handleSearch, handleFilter }) {
@@ -22,7 +22,7 @@ function SearchAndFilter({ searchInput, handleSearch, handleFilter }) {
     }, [])
     return (
         <div>
-            <FindingBar
+            <SearchingBar
                 searchInput={searchInput}
                 handleSearch={handleSearch}
             />

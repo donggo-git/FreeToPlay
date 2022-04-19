@@ -3,6 +3,7 @@ import './GameList.css'
 import EmptyList from './EmptyList'
 import GameList from './GameList'
 import LoadingPage from './LoadingPage'
+import apiKey from './apiKey.env'
 
 function BottomComponent({ searchSubmit, filter }) {
     let api_key = '4d9f3393dbcd43549ea70dc0f6cff3b9'
@@ -25,7 +26,7 @@ function BottomComponent({ searchSubmit, filter }) {
             setIsLoading(true)
             if (searchSubmit.length != 0) {
                 fetch(`
-            https://api.rawg.io/api/games?key=${api_key}&search=${searchSubmit}
+            https://api.rawg.io/api/games?key=${apiKey}&search=${searchSubmit}
             ${returnFilterPath()}
             `)
                     .then(response => response.json())
