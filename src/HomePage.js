@@ -68,6 +68,8 @@ function HomePage() {
             <BottomComponent
                 searchSubmit={searchSubmit}
                 filter={filter}
+                setErrorTittle={setErrorTittle}
+                setIsErrorMessageOpen={setIsErrorMessageOpen}
             />
             {/*if user enter invalid query in the finding bar Error Message will appear */}
             {isErrorMessageOpen &&

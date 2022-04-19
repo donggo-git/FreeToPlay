@@ -3,7 +3,6 @@ import './Filter.css'
 import LoadingPage from './LoadingPage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
-import apiKey from './apiKey.env'
 
 function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }) {
     const [genres, setGenres] = useState([])
@@ -12,7 +11,7 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
     const [isLoading, setIsLoading] = useState(true)
 
     const fetchGenres = async () => {
-        fetch(`https://api.rawg.io/api/genres?key=${apiKey}`)
+        fetch(`https://api.rawg.io/api/genres?key=${process.env.REACT_APP_API_KEY}`)
             .then(res => res.json())
             .then(data => {
                 setGenres(data.results)
@@ -20,12 +19,12 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
 
     }
     const fetchPlatforms = async () => {
-        fetch(`https://api.rawg.io/api/platforms?key=${apiKey}`)
+        fetch(`https://api.rawg.io/api/platforms?key=${process.env.REACT_APP_API_KEY}`)
             .then(res => res.json())
             .then(data => setPlatforms(data.results.slice(0, 15)))
     }
     const fetchTags = async () => {
-        fetch(`https://api.rawg.io/api/tags?key=4d9f3393dbcd43549ea70dc0f6cff3b9`)
+        fetch(`https://api.rawg.io/api/tags?key=${process.env.REACT_APP_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setTags(data.results)

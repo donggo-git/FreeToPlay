@@ -3,10 +3,8 @@ import './GameList.css'
 import EmptyList from './EmptyList'
 import GameList from './GameList'
 import LoadingPage from './LoadingPage'
-import apiKey from './apiKey.env'
 
-function BottomComponent({ searchSubmit, filter }) {
-    let api_key = '4d9f3393dbcd43549ea70dc0f6cff3b9'
+function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setErrorTittle }) {
     const [gameList, setGameList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     //use to return the end of fetching base on user filter
@@ -26,7 +24,7 @@ function BottomComponent({ searchSubmit, filter }) {
             setIsLoading(true)
             if (searchSubmit.length != 0) {
                 fetch(`
-            https://api.rawg.io/api/games?key=${apiKey}&search=${searchSubmit}
+            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&search=${searchSubmit}
             ${returnFilterPath()}
             `)
                     .then(response => response.json())
@@ -37,7 +35,7 @@ function BottomComponent({ searchSubmit, filter }) {
             }
             else {
                 fetch(`
-            https://api.rawg.io/api/games?key=${api_key}&page=1
+            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page=1
             ${returnFilterPath()}
             `)
                     .then(response => response.json())
@@ -55,7 +53,6 @@ function BottomComponent({ searchSubmit, filter }) {
     useEffect(() => {
         fetchData()
     }, [searchSubmit, filter])
-
     return (
         <div className='gameList__container'>
             {
@@ -63,13 +60,21 @@ function BottomComponent({ searchSubmit, filter }) {
                 searchSubmit.length > 0 && gameList.length > 0 ?
                     <div>
                         <p className='gameList__amount'>There are {gameList.length} results fit with your search</p>
-                        <GameList gameList={gameList} />
+                        <GameList
+                            gameList={gameList}
+                            setErrorTittle={setErrorTittle}
+                            setIsErrorMessageOpen={setIsErrorMessageOpen}
+                        />
                     </div> :
-                    //when user don't use search
                     searchSubmit.length > 0 ?
+                        //when user search, but don't have available game
                         <EmptyList /> :
-                        //when 
-                        <GameList gameList={gameList} />
+                        //standard game list when user doesn't search
+                        <GameList
+                            gameList={gameList}
+                            setErrorTittle={setErrorTittle}
+                            setIsErrorMessageOpen={setIsErrorMessageOpen}
+                        />
             }
             {isLoading ? <LoadingPage top='180px' height='100%' width="100%" /> : <div></div>
             }
