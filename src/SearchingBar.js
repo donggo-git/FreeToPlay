@@ -13,7 +13,7 @@ function SearchingBar({ handleSearch }) {
             <input
                 type='text'
                 className='search_input'
-                placeholder='search for puppy, kitty etc.'
+                placeholder='search for the game you want'
                 value={searchInput}
                 onChange={(e) => handleSearchInput(e.target.value)}
             />
