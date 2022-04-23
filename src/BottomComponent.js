@@ -23,7 +23,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
         try {
             setIsLoading(true)
             if (searchSubmit.length != 0) {
-                fetch(`
+                await fetch(`
             https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&search=${searchSubmit}
             ${returnFilterPath()}
             `)
@@ -34,7 +34,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
                     })
             }
             else {
-                fetch(`
+                await fetch(`
             https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page=1
             ${returnFilterPath()}
             `)
