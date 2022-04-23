@@ -11,7 +11,7 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
     const [isLoading, setIsLoading] = useState(true)
 
     const fetchGenres = async () => {
-        fetch(`https://api.rawg.io/api/genres?key=${process.env.REACT_APP_API_KEY}`)
+        await fetch(`https://api.rawg.io/api/genres?key=${process.env.REACT_APP_API_KEY}`)
             .then(res => res.json())
             .then(data => {
                 setGenres(data.results)
@@ -19,12 +19,12 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
 
     }
     const fetchPlatforms = async () => {
-        fetch(`https://api.rawg.io/api/platforms?key=${process.env.REACT_APP_API_KEY}`)
+        await fetch(`https://api.rawg.io/api/platforms?key=${process.env.REACT_APP_API_KEY}`)
             .then(res => res.json())
             .then(data => setPlatforms(data.results.slice(0, 15)))
     }
     const fetchTags = async () => {
-        fetch(`https://api.rawg.io/api/tags?key=${process.env.REACT_APP_API_KEY}`)
+        await fetch(`https://api.rawg.io/api/tags?key=${process.env.REACT_APP_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setTags(data.results)
