@@ -6,7 +6,9 @@ import LoadingPage from './LoadingPage'
 
 function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setErrorTittle }) {
     const [gameList, setGameList] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isFetching, setIsFetching] = useState(false)
+    const [page, setPage] = useState(1)
     //use to return the end of fetching base on user filter
     const returnFilterPath = () => {
         let returnPath = ''
@@ -21,28 +23,30 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
     const fetchData = async () => {
 
         try {
-            setIsLoading(true)
+            if (page == 1) setIsLoading(true)
             if (searchSubmit.length != 0) {
                 await fetch(`
             https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&search=${searchSubmit}
+            &page=${String(page)}
             ${returnFilterPath()}
             `)
                     .then(response => response.json())
                     .then(data => {
-                        setGameList(data.results)
+                        setGameList(() => [...gameList, ...data.results])
                         setTimeout(setIsLoading(false), 1000)
                     })
             }
             else {
                 await fetch(`
-            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page=1
-            ${returnFilterPath()}
+            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page=${String(page)}${returnFilterPath()}
             `)
                     .then(response => response.json())
                     .then(data => {
-                        setGameList(data.results)
+                        setGameList([...gameList, ...data.results])
+                        console.log(page)
                         setTimeout(setIsLoading(false), 1000)
                     })
+
             };
         }
         catch (error) {
@@ -50,9 +54,20 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
             console.log(error)
         }
     }
+
     useEffect(() => {
         fetchData()
-    }, [searchSubmit, filter])
+        window.addEventListener("scroll", handleScroll)
+    }, [searchSubmit, filter, page])
+
+    //fetching more data when user scroll down to bottom
+    const handleScroll = () => {
+        if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) == document.documentElement.offsetHeight) {
+            setPage(page + 1)
+            console.log("fetching")
+        }
+
+    }
     return (
         <div className='gameList__container'>
             {
