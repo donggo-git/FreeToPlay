@@ -3,6 +3,7 @@ import './GameList.css'
 import EmptyList from './EmptyList'
 import GameList from './GameList'
 import LoadingPage from './LoadingPage'
+import ScrollLoading from './ScrollLoading'
 
 function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setErrorTittle }) {
     const [gameList, setGameList] = useState([])
@@ -63,8 +64,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
     //fetching more data when user scroll down to bottom
     const handleScroll = () => {
         if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) == document.documentElement.offsetHeight) {
-            setPage(page + 1)
-            console.log("fetching")
+            setTimeout(setPage(page + 1), 1000)
         }
 
     }
@@ -93,6 +93,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
             }
             {isLoading ? <LoadingPage top='180px' height='100%' width="100%" /> : <div></div>
             }
+            <ScrollLoading />
         </div>
     )
 }
