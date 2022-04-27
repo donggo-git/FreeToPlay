@@ -8,7 +8,9 @@ import ScrollLoading from './ScrollLoading'
 function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setErrorTittle }) {
     const [gameList, setGameList] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [isFetching, setIsFetching] = useState(false)
+    const [isNotFound, setIsNotFound] = useState(false)
+    const [currentSearch, setCurrentSearch] = useState(searchSubmit)
+    const [currentFilter, setCurrentFilter] = useState(JSON.parse(JSON.stringify(filter)))
     const [page, setPage] = useState(1)
     //use to return the end of fetching base on user filter
     const returnFilterPath = () => {
@@ -25,40 +27,80 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
 
         try {
             if (page == 1) setIsLoading(true)
-            if (searchSubmit.length != 0) {
+            //if user filter or search
+            //return a new game list base on user filter and search
+            if (checkBeforeFetch()) {
+                console.log(checkBeforeFetch())
+                setIsLoading(true)
+                //scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                })
+                //set page to 1
+                setPage(1)
+
+                //fetch data base on user filter and search
                 await fetch(`
-            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&search=${searchSubmit}
-            &page=${String(page)}
+            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}${searchSubmit.length > 0 ? `&search=${searchSubmit}` : ``}&page=${String(page)}
             ${returnFilterPath()}
             `)
                     .then(response => response.json())
                     .then(data => {
-                        setGameList(() => [...gameList, ...data.results])
-                        setTimeout(setIsLoading(false), 1000)
+                        if (data.results != undefined) {
+                            setGameList(() => data.results)
+                            setTimeout(setIsLoading(false), 1000)
+                            setIsNotFound(false)
+                        }
+                        else {
+                            setIsNotFound(true)
+                        }
                     })
+
             }
             else {
                 await fetch(`
-            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page=${String(page)}${returnFilterPath()}
+            https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}${searchSubmit.length > 0 ? `&search=${searchSubmit}` : ``}&page=${String(page)}
+            ${returnFilterPath()}
             `)
                     .then(response => response.json())
                     .then(data => {
-                        setGameList([...gameList, ...data.results])
-                        console.log(page)
-                        setTimeout(setIsLoading(false), 1000)
+                        if (data.results != undefined) {
+                            setGameList(() => [...gameList, ...data.results])
+                            setTimeout(setIsLoading(false), 1000)
+                            setIsNotFound(false)
+                        }
+                        else {
+                            setIsNotFound(true)
+                        }
                     })
-
-            };
+            }
         }
         catch (error) {
             setIsLoading(true);
             console.log(error)
         }
     }
+    const checkBeforeFetch = () => {
+        if (currentSearch != searchSubmit) {
+            console.log("different search")
+            setCurrentSearch(searchSubmit)
+            return true;
+        }
+        for (let section in filter) {
+            if (filter[section].toString() !== currentFilter[section].toString()) {
+                console.log("different filter")
+                setCurrentFilter(JSON.parse(JSON.stringify(filter)))
+                return true
+            }
+        }
+        return false
+    }
 
     useEffect(() => {
         fetchData()
         window.addEventListener("scroll", handleScroll)
+
     }, [searchSubmit, filter, page])
 
     //fetching more data when user scroll down to bottom
@@ -80,20 +122,24 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
                             setErrorTittle={setErrorTittle}
                             setIsErrorMessageOpen={setIsErrorMessageOpen}
                         />
+                        <ScrollLoading />
                     </div> :
-                    searchSubmit.length > 0 ?
+                    searchSubmit.length || isNotFound > 0 ?
                         //when user search, but don't have available game
                         <EmptyList /> :
                         //standard game list when user doesn't search
-                        <GameList
-                            gameList={gameList}
-                            setErrorTittle={setErrorTittle}
-                            setIsErrorMessageOpen={setIsErrorMessageOpen}
-                        />
+                        <div>
+                            <GameList
+                                gameList={gameList}
+                                setErrorTittle={setErrorTittle}
+                                setIsErrorMessageOpen={setIsErrorMessageOpen}
+                            />
+                            <ScrollLoading />
+                        </div>
             }
             {isLoading ? <LoadingPage top='180px' height='100%' width="100%" /> : <div></div>
             }
-            <ScrollLoading />
+
         </div>
     )
 }
