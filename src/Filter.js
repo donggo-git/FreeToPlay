@@ -52,7 +52,8 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
                 top: scrollPosition < 180 ? `${180 - scrollPosition}px` : `0px`,
                 left: window.innerWidth < 1000 ?
                     (isFilterOpen ? '0px' : '-250px') :
-                    '0px'
+                    '0px',
+                height: scrollPosition < 180 ? `calc(100vh - ${(200 - scrollPosition)}px)` : `100vh`
             }}
         >
             {/* filter btn */}
