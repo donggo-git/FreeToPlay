@@ -4,6 +4,7 @@ import EmptyList from './EmptyList'
 import GameList from './GameList'
 import LoadingPage from './LoadingPage'
 import ScrollLoading from './ScrollLoading'
+import GameDetail from './GameDetail'
 
 function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setErrorTittle }) {
     const [gameList, setGameList] = useState([])
@@ -139,7 +140,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
             }
             {isLoading ? <LoadingPage top='180px' height='100%' width="100%" /> : <div></div>
             }
-
+            <GameDetail gameID={'3498'} gameName="" />
         </div>
     )
 }
