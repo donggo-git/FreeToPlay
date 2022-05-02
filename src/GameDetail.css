@@ -56,6 +56,30 @@
     background-color: rgb(75, 75, 75);
 }
 
+.GameDetail__sections {
+    margin: 10px 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid rgb(86, 86, 86);
+    border-bottom: 1px solid rgb(86, 86, 86);
+
+}
+
+.GameDetail__section {
+    display: flex;
+    margin: 0 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.GameDetail__section>p {
+    margin: 2px 0;
+}
+
+
 .GameDetail__modal {
     top: 0;
     left: 0;

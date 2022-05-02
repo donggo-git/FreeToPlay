@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './GameDetail.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faJedi } from '@fortawesome/free-solid-svg-icons'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons'
 
 function GameDetail({ gameID, gameName, gameImg }) {
     const [gameDetail, setGameDetail] = useState({})
@@ -35,10 +39,24 @@ function GameDetail({ gameID, gameName, gameImg }) {
                     </div>
                 </div>
                 {/*game section */}
-                <div className='GameDetail__section'>
+                <div className='GameDetail__sections'>
                     {/*rating */}
-                    <div className='GameDetail__section--rating'>
-                        <p>{gameDetail?.ratings?.reduce((acc, current) => acc + current.id * current.percent, 0) / 100}</p>
+                    <div className='GameDetail__section rating'>
+                        <p>Rating</p>
+                        <p>{gameDetail?.rating}</p>
+                        <FontAwesomeIcon icon={faStar} />
+                    </div>
+                    {/*achievement count */}
+                    <div className='GameDetail__section achievement'>
+                        <p>Achievements</p>
+                        <p>{gameDetail?.achievements_count}</p>
+                        <FontAwesomeIcon icon={faTrophy} />
+                    </div>
+                    { /*suggestion */}
+                    <div className='GameDetail__section suggestion'>
+                        <p>Suggestions</p>
+                        <p>{gameDetail?.suggestions_count}</p>
+                        <FontAwesomeIcon icon={faJedi} />
                     </div>
                 </div>
                 {/*game img */}
