@@ -4,12 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { faJedi } from '@fortawesome/free-solid-svg-icons'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
 
 function GameDetail({ gameID, gameName, gameImg }) {
     const [gameDetail, setGameDetail] = useState({})
     useEffect(() => {
         fetchGameDetail()
-        console.log(gameDetail)
+
+
     }
         , [gameID, gameName, gameImg])
     const fetchGameDetail = async () => {
@@ -24,6 +27,53 @@ function GameDetail({ gameID, gameName, gameImg }) {
             console.log(error)
         }
     }
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    const ratingCount = () => {
+        let count = [0, 0, 0, 0, 0]
+        for (let i in gameDetail.ratings) {
+            count.splice(gameDetail.ratings[i].id - 1, 1, gameDetail.ratings[i].count)
+        }
+        return count
+    }
+    const ratingData = {
+        labels: gameDetail?.ratings?.map(rate => `${rate.id} star`),
+        datasets: [
+            {
+                label: '# of Votes',
+                data: ratingCount() || [],
+                backgroundColor: [
+                    "red",
+                    "orange",
+                    "yellow",
+                    "green",
+                    "blue"
+                ],
+                borderWidth: 0,
+            },
+        ],
+        options: {
+            radius: '100px',
+            position: 'top'
+        }
+    };
+    const ratingDataOptions = {
+
+        radius: 50,
+        layout: {
+            padding: 0
+        },
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            }
+        }
+    }
+
 
     return (
         <div className='GameDetail__container'>
@@ -59,7 +109,16 @@ function GameDetail({ gameID, gameName, gameImg }) {
                         <FontAwesomeIcon icon={faJedi} />
                     </div>
                 </div>
-                {/*game img */}
+                {/*game rating */}
+                <h2>Rating</h2>
+                <div>
+                    <Doughnut
+                        data={ratingData}
+                        options={ratingDataOptions}
+                        height={"200px"}
+                        width="200px"
+                    />
+                </div>
                 {/*game detail */}
             </div>
 
