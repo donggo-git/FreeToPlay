@@ -9,12 +9,13 @@ import { Doughnut } from 'react-chartjs-2';
 
 function GameDetail({ gameID, gameName, gameImg }) {
     const [gameDetail, setGameDetail] = useState({})
+    const [isDescribeShowMore, setIsGameDescribeShowMore] = useState(false)
     useEffect(() => {
         fetchGameDetail()
-
+        console.log(gameDetail)
 
     }
-        , [gameID, gameName, gameImg])
+        , [gameID])
     const fetchGameDetail = async () => {
         try {
             await fetch(`https://api.rawg.io/api/games/3498?key=${process.env.REACT_APP_API_KEY}`)
@@ -27,6 +28,7 @@ function GameDetail({ gameID, gameName, gameImg }) {
             console.log(error)
         }
     }
+    //create and register donut char for Rating
     ChartJS.register(ArcElement, Tooltip, Legend);
     const ratingCount = () => {
         let count = [0, 0, 0, 0, 0]
@@ -36,7 +38,7 @@ function GameDetail({ gameID, gameName, gameImg }) {
         return count
     }
     const ratingData = {
-        labels: gameDetail?.ratings?.map(rate => `${rate.id} star`),
+        labels: ['1 star', '2 stars', '3 stars', '4 starts', '5 star',],
         datasets: [
             {
                 label: '# of Votes',
@@ -45,7 +47,8 @@ function GameDetail({ gameID, gameName, gameImg }) {
                     "red",
                     "orange",
                     "yellow",
-                    "green",
+                    //color green
+                    'rgb(2, 230, 2)',
                     "blue"
                 ],
                 borderWidth: 0,
@@ -73,6 +76,10 @@ function GameDetail({ gameID, gameName, gameImg }) {
             }
         }
     }
+    //
+    const handleShowMoreDescribe = () => {
+        setIsGameDescribeShowMore(!isDescribeShowMore)
+    }
 
 
     return (
@@ -85,7 +92,13 @@ function GameDetail({ gameID, gameName, gameImg }) {
                     <div className='GameDetail__title--content'>
                         <h2>{gameDetail.name}</h2>
                         <p>{gameDetail?.publishers?.[0]?.name}</p>
-                        <button className='GameDetail__btn'>PLAY</button>
+                        <a
+                            href={gameDetail?.website}
+                            target='blank'
+                            className='GameDetail__btn'
+                        >
+                            PLAY
+                        </a>
                     </div>
                 </div>
                 {/*game section */}
@@ -110,16 +123,41 @@ function GameDetail({ gameID, gameName, gameImg }) {
                     </div>
                 </div>
                 {/*game rating */}
-                <h2>Rating</h2>
-                <div>
-                    <Doughnut
-                        data={ratingData}
-                        options={ratingDataOptions}
-                        height={"200px"}
-                        width="200px"
-                    />
+                <div className='gameDetail__rating'>
+                    <h2>Rating</h2>
+                    <div>
+                        <Doughnut
+                            data={ratingData}
+                            options={ratingDataOptions}
+                            height={"200px"}
+                            width="200px"
+                        />
+                    </div>
                 </div>
-                {/*game detail */}
+                {/*game detail description */}
+                <div className='gameDetail__description--container'>
+                    <p className='gameDetail__description'>
+
+                        {
+                            isDescribeShowMore ?
+                                //at standard game description only show 30 words
+                                //if user click on show more they will get full description
+                                gameDetail?.description_raw :
+                                `${gameDetail?.description_raw?.split(" ").slice(0, 30).join(" ")} ...`
+                        }
+                    </p>
+                    <p
+                        className='showMore--btn'
+                        onClick={() => handleShowMoreDescribe()}
+                    >
+                        {
+                            isDescribeShowMore ?
+                                "Show less" :
+                                "Show more"
+                        }
+                    </p>
+                </div>
+                {/*game imgs */}
             </div>
 
 
