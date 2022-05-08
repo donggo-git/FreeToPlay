@@ -158,6 +158,23 @@ function GameDetail({ gameID, gameName, gameImg }) {
                     </p>
                 </div>
                 {/*game imgs */}
+                <div className='gameDetail__imgs'>
+                    <div
+                        className='gameDetail__img'
+                        style={{
+                            backgroundImage: `url("${gameDetail.background_image}")`
+                        }}
+                        on
+                    >
+                    </div>
+                    <div
+                        className='gameDetail__img'
+                        style={{
+                            backgroundImage: `url("${gameDetail.background_image_additional}") `
+                        }}
+                    >
+                    </div>
+                </div>
             </div>
 
 

@@ -28,7 +28,7 @@ function Filter({ handleFilter, scrollPosition, isFilterOpen, handleFilterOpen }
             .then(response => response.json())
             .then(data => {
                 setTags(data.results)
-                setTimeout(setIsLoading(false), 1000)
+                setTimeout(setIsLoading(false), 100)
             })
     }
     //fetching genres, platforms and tags

@@ -92,6 +92,22 @@
     color: rgb(2, 160, 203);
 }
 
+.gameDetail__imgs {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.gameDetail__img {
+    width: 80%;
+    height: 300px;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 5px 0;
+}
+
 .GameDetail__modal {
     top: 0;
     left: 0;

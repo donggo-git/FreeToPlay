@@ -107,7 +107,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
     //fetching more data when user scroll down to bottom
     const handleScroll = () => {
         if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) == document.documentElement.offsetHeight) {
-            setTimeout(setPage(page + 1), 1000)
+            setTimeout(setPage(page + 1), 100)
         }
 
     }
