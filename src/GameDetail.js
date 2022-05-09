@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import './GameDetail.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { faJedi } from '@fortawesome/free-solid-svg-icons'
-import { faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faJedi, faTrophy, faStar, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-function GameDetail({ gameID, gameName, gameImg }) {
+function GameDetail({ gameID, handleDetailOpen }) {
     const [gameDetail, setGameDetail] = useState({})
     const [isDescribeShowMore, setIsGameDescribeShowMore] = useState(false)
     useEffect(() => {
         fetchGameDetail()
-        console.log(gameDetail)
-
     }
-        , [gameID])
+        , [])
     const fetchGameDetail = async () => {
         try {
-            await fetch(`https://api.rawg.io/api/games/3498?key=${process.env.REACT_APP_API_KEY}`)
+            await fetch(`https://api.rawg.io/api/games/${gameID}?key=${process.env.REACT_APP_API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
                     setGameDetail(data)
@@ -86,6 +82,13 @@ function GameDetail({ gameID, gameName, gameImg }) {
         <div className='GameDetail__container'>
 
             <div className='GameDetail'>
+                {/*close button */}
+                <button
+                    className='GameDetail__closebtn'
+                    onClick={() => handleDetailOpen()}
+                >
+                    <FontAwesomeIcon icon={faXmark} />
+                </button>
                 {/*game title */}
                 <div className='GameDetail__title'>
                     <img src={gameDetail.background_image} className='GameDetail__tittle--img' />

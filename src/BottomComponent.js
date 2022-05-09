@@ -13,6 +13,8 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
     const [currentSearch, setCurrentSearch] = useState(searchSubmit)
     const [currentFilter, setCurrentFilter] = useState(JSON.parse(JSON.stringify(filter)))
     const [page, setPage] = useState(1)
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const [currentGameID, setCurrentGameID] = useState("")
     //use to return the end of fetching base on user filter
     const returnFilterPath = () => {
         let returnPath = ''
@@ -97,7 +99,6 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
         }
         return false
     }
-
     useEffect(() => {
         fetchData()
         window.addEventListener("scroll", handleScroll)
@@ -111,6 +112,15 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
         }
 
     }
+    const handleDetailOpen = (gameID = "") => {
+        if (gameID === "") setIsDetailOpen(!isDetailOpen)
+        else {
+            console.log(gameID)
+            setCurrentGameID(gameID)
+            setTimeout(setIsDetailOpen(!isDetailOpen), 100)
+        }
+    }
+
     return (
         <div className='gameList__container'>
             {
@@ -134,13 +144,17 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
                                 gameList={gameList}
                                 setErrorTittle={setErrorTittle}
                                 setIsErrorMessageOpen={setIsErrorMessageOpen}
+                                handleDetailOpen={handleDetailOpen}
                             />
                             <ScrollLoading />
                         </div>
             }
             {isLoading ? <LoadingPage top='180px' height='100%' width="100%" /> : <div></div>
             }
-            <GameDetail gameID={'3498'} gameName="" />
+            {isDetailOpen && <GameDetail
+                gameID={currentGameID}
+                currentGameID={currentGameID}
+                handleDetailOpen={handleDetailOpen} />}
         </div>
     )
 }
