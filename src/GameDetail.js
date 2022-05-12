@@ -8,6 +8,7 @@ import { Doughnut } from 'react-chartjs-2';
 function GameDetail({ gameID, handleDetailOpen }) {
     const [gameDetail, setGameDetail] = useState({})
     const [isDescribeShowMore, setIsGameDescribeShowMore] = useState(false)
+    const [detailCloseAnimate, setDetailAnimate] = useState('')
     useEffect(() => {
         fetchGameDetail()
     }
@@ -76,16 +77,30 @@ function GameDetail({ gameID, handleDetailOpen }) {
     const handleShowMoreDescribe = () => {
         setIsGameDescribeShowMore(!isDescribeShowMore)
     }
-
+    const handleDetailClose = () => {
+        if (window.innerWidth > 1000) {
+            setDetailAnimate('gameDetailDown 0.4s forwards')
+        }
+        else {
+            setDetailAnimate('gameDetailDownMobile 0.4s forwards')
+        }
+        setTimeout(() => {
+            setDetailAnimate('')
+            handleDetailOpen()
+        }, 400)
+    }
 
     return (
         <div className='GameDetail__container'>
 
-            <div className='GameDetail'>
+            <div
+                className='GameDetail'
+                style={{ animation: detailCloseAnimate }}
+            >
                 {/*close button */}
                 <button
                     className='GameDetail__closebtn'
-                    onClick={() => handleDetailOpen()}
+                    onClick={() => handleDetailClose()}
                 >
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
