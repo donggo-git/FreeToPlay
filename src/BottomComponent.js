@@ -113,7 +113,8 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
 
     }
     const handleDetailOpen = (gameID = "") => {
-        if (gameID === "") setIsDetailOpen(!isDetailOpen)
+        console.log("hello")
+        if (gameID === "" || gameID == undefined) setIsDetailOpen(!isDetailOpen)
         else {
             console.log(gameID)
             setCurrentGameID(gameID)
@@ -132,6 +133,7 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
                             gameList={gameList}
                             setErrorTittle={setErrorTittle}
                             setIsErrorMessageOpen={setIsErrorMessageOpen}
+                            handleDetailOpen={handleDetailOpen}
                         />
                         <ScrollLoading />
                     </div> :
@@ -142,8 +144,6 @@ function BottomComponent({ searchSubmit, filter, setIsErrorMessageOpen, setError
                         <div>
                             <GameList
                                 gameList={gameList}
-                                setErrorTittle={setErrorTittle}
-                                setIsErrorMessageOpen={setIsErrorMessageOpen}
                                 handleDetailOpen={handleDetailOpen}
                             />
                             <ScrollLoading />

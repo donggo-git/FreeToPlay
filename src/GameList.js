@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 
-function GameList({ gameList, setErrorTittle, setIsErrorMessageOpen, handleDetailOpen }) {
+function GameList({ gameList, handleDetailOpen }) {
     //when user click to each game in list it will send user to the official website of that game
-
+    useEffect(() => console.log(gameList), [])
     return (
         <div>
             <div className='gameList'>
@@ -11,7 +11,7 @@ function GameList({ gameList, setErrorTittle, setIsErrorMessageOpen, handleDetai
                         <div
                             key={game.id}
                             className="game"
-                            onClick={() => handleDetailOpen(game.id)}
+                            onClick={() => handleDetailOpen(game?.id + "")}
                         >
                             <img src={game.background_image} />
                             <p>{game.name}</p>
